@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Transform cameraTran;
     public float _speed = 5;
     private int lifes = 4;
 
@@ -38,5 +39,9 @@ public class Player : MonoBehaviour
         }
 
         transform.position = moveVector;
+
+        moveVector.z = cameraTran.position.z;
+
+        cameraTran.position = moveVector;
     }
 }
