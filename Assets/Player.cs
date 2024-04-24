@@ -40,10 +40,28 @@ public class Player : MonoBehaviour
 
         }
 
+        if(moveVector.x > 8)
+        {
+            moveVector.x = 8;
+        }
+        if (moveVector.x < -8)
+        {
+            moveVector.x = -8;
+        }
+
+        if (moveVector.y > 4)
+        {
+            moveVector.y = 4;
+        }
+        if (moveVector.y < -4)
+        {
+            moveVector.y = -4;
+        }
+
         transform.position = moveVector;
 
         moveVector.z = cameraTran.position.z;
 
-        cameraTran.position = moveVector;
+      //  cameraTran.position = moveVector;
     }
 }
