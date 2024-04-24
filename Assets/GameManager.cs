@@ -51,6 +51,29 @@ public class GameManager : MonoBehaviour
                     Debug.Log("My state is DataLoad");
                 }
                 break;
+                case GameStage.start:
+                {
+
+                    Debug.Log("My state is start");
+                }
+                break;
+                case GameStage.GameLoop:
+                {
+                    Debug.Log("My state is gameloop");
+                }
+                break;
+
+                case GameStage.GameEnd:
+                {
+                    Debug.Log("My state is gameend");
+                }
+                break;
+
+                case GameStage.destory: 
+                {
+                    Debug.Log("My state is destory");
+                }
+                break;
         }
     }
 }
