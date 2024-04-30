@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public InitState _initStaet = new InitState();
     public LoadDataState _loadStaet = new LoadDataState();
 
+    public PlayerMainManger _playerManager;
+
     public void SwitchState(GMBaseState nextState)
     {
         _currentState.OnExitState(this);
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     public void InitStateOnEnterState()
     {
         Debug.Log("this is on Enter for init State");
+        SwitchState(_loadStaet);
     }
 
     public void InitStateOnUpdateState()
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
     public void DataLoadStateOnUpdateState()
     {
         Debug.Log("this is on Update for Load Data State");
+      //  _playerManager.UpdateScript();
     }
 
     public void DataLoadStateOnExitState()
@@ -66,6 +70,13 @@ public class GameManager : MonoBehaviour
 
         _currentState = _initStaet;
         _initStaet.OnEnterState(this);
+    }
+
+    private void Start()
+    {
+        _playerManager = GameObject.FindAnyObjectByType<PlayerMainManger>();
+
+        _playerManager.Init();
     }
 
     public void Update()
