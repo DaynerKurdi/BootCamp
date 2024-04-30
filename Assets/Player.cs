@@ -8,9 +8,16 @@ public class Player : MonoBehaviour
     public float _speed = 5;
     private int lifes = 4;
 
+    public GameObject _bullset;
+
+    public bool _bulletFiredFlag = false;
+    public List<GameObject> _bulletList;
+
     // Start is called before the first frame update
     void Start()
     {
+        _bulletList = new List<GameObject>();
+
         Vector2 x = new Vector2();
 
         GameManager.instance._stageName = "Stage One";
@@ -20,6 +27,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Vector3 moveVector = transform.position;
+       
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -57,6 +65,16 @@ public class Player : MonoBehaviour
         {
             moveVector.y = -4;
         }
+
+       
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+          //  _bulletFiredFlag = true;
+            Instantiate(_bullset, transform.position, transform.rotation); 
+        }
+
+       
 
         transform.position = moveVector;
 
