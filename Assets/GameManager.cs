@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     public void DataLoadStateOnUpdateState()
     {
         Debug.Log("this is on Update for Load Data State");
-      //  _playerManager.UpdateScript();
+        _playerManager.UpdateScript();
     }
 
     public void DataLoadStateOnExitState()
