@@ -72,9 +72,6 @@ public class PlayerMainManger : MonoBehaviour
 
         _shipObject.transform.position = moveVector;
 
-
-
-
         int count =  _bulletList.Count;
         for (int i = count - 1; i >= 0; i--)
         {
@@ -92,6 +89,5 @@ public class PlayerMainManger : MonoBehaviour
                 Destroy(temp.gameObject);
             }
         }
-
     }
 }

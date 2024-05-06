@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public LoadDataState _loadStaet = new LoadDataState();
 
     public PlayerMainManger _playerManager;
+    public EnemeyMainManger _enemyMainManger;
 
     public void SwitchState(GMBaseState nextState)
     {
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("this is on Update for Load Data State");
         _playerManager.UpdateScript();
+        _enemyMainManger.UpdateScript();
     }
 
     public void DataLoadStateOnExitState()
@@ -75,8 +77,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _playerManager = GameObject.FindAnyObjectByType<PlayerMainManger>();
+        _enemyMainManger = GameObject.FindAnyObjectByType<EnemeyMainManger>();
 
         _playerManager.Init();
+        _enemyMainManger.Init();
     }
 
     public void Update()
