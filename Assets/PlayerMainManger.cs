@@ -11,11 +11,8 @@ public class PlayerMainManger : MonoBehaviour
     private SpaceShipObject _shipObject;
     public BulletMovement _bulletObject;
 
-    public List<BulletMovement> _bulletList;
-
     public void Init()
     {
-        _bulletList = new List<BulletMovement>();
         _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>();    
     }
 
@@ -62,32 +59,10 @@ public class PlayerMainManger : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            //  _bulletFiredFlag = true;
-           BulletMovement temp = Instantiate(_bulletObject, _shipObject.transform.position, _shipObject.transform.rotation);
-
-            _bulletList.Add(temp);
-        }
+       
 
         _shipObject.transform.position = moveVector;
 
-        int count =  _bulletList.Count;
-        for (int i = count - 1; i >= 0; i--)
-        {
-            Vector3 bullVector = _bulletList[i].transform.position;
-
-            bullVector.y = bullVector.y + 5 * Time.deltaTime;
-
-            _bulletList[i].transform.position = bullVector;
-
-            if (_bulletList[i].transform.position.y > 10)
-            {
-                BulletMovement temp = _bulletList[i];
-                _bulletList.RemoveAt(i);
-
-                Destroy(temp.gameObject);
-            }
-        }
+        
     }
 }
