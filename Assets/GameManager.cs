@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     public PlayerMainManger _playerManager;
     public EnemeyMainManger _enemyMainManger;
+    public BulletMainManger _bulletMainManger;
 
     public void SwitchState(GMBaseState nextState)
     {
@@ -78,9 +79,11 @@ public class GameManager : MonoBehaviour
     {
         _playerManager = GameObject.FindAnyObjectByType<PlayerMainManger>();
         _enemyMainManger = GameObject.FindAnyObjectByType<EnemeyMainManger>();
+        _bulletMainManger = GameObject.FindAnyObjectByType<BulletMainManger>();
 
         _playerManager.Init();
         _enemyMainManger.Init();
+        _bulletMainManger.Init();
     }
 
     public void Update()

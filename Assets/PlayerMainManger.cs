@@ -9,8 +9,7 @@ public class PlayerMainManger : MonoBehaviour
     public float _speed = 5;
 
     private SpaceShipObject _shipObject;
-    public BulletMovement _bulletObject;
-
+   
     public void Init()
     {
         _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>();    
