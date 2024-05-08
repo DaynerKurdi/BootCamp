@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMainManger : MonoBehaviour
 {
@@ -57,6 +58,10 @@ public class PlayerMainManger : MonoBehaviour
             moveVector.y = -4;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            EventSystemRef.instance.BulletRequest.Invoke(_shipObject.transform.position);
+        }
 
        
 

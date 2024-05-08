@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     public PlayerMainManger _playerManager;
     public EnemeyMainManger _enemyMainManger;
     public BulletMainManger _bulletMainManger;
+    public EventSystemRef _eventSystem;
 
     public void SwitchState(GMBaseState nextState)
     {
@@ -78,12 +80,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _playerManager = GameObject.FindAnyObjectByType<PlayerMainManger>();
-        _enemyMainManger = GameObject.FindAnyObjectByType<EnemeyMainManger>();
-        _bulletMainManger = GameObject.FindAnyObjectByType<BulletMainManger>();
+        _enemyMainManger = FindAnyObjectByType<EnemeyMainManger>();
+        _bulletMainManger = FindAnyObjectByType<BulletMainManger>();
+        _eventSystem = FindAnyObjectByType<EventSystemRef>();
 
         _playerManager.Init();
         _enemyMainManger.Init();
         _bulletMainManger.Init();
+        _eventSystem.Init();
     }
 
     public void Update()

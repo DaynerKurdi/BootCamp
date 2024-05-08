@@ -13,7 +13,7 @@ public class BulletSpawner : MonoBehaviour
         Missile = 1,
     }
 
-    public BulletBlueprint SpawnBullet (BulletType type)
+    public BulletBlueprint SpawnBullet (BulletType type, Vector3 pos)
     {
         BulletBlueprint bullet = null;
 
@@ -21,7 +21,7 @@ public class BulletSpawner : MonoBehaviour
         {
             case BulletType.NoramlBullet:
                 {
-                    NormalBullet normalBullet = Instantiate(_normalBullet, transform.position, transform.rotation);
+                    NormalBullet normalBullet = Instantiate(_normalBullet, pos, transform.rotation);
 
                     bullet = normalBullet;
                 }
