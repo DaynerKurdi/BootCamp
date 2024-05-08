@@ -13,15 +13,19 @@ public class BulletSpawner : MonoBehaviour
         Missile = 1,
     }
 
-    public BulletBlueprint SpawnBullet (BulletType type, Vector3 pos)
+    public BulletBlueprint SpawnBullet (BulletContiner continer)
     {
         BulletBlueprint bullet = null;
 
-        switch (type)
+
+
+        switch (continer.bulletType)
         {
             case BulletType.NoramlBullet:
                 {
-                    NormalBullet normalBullet = Instantiate(_normalBullet, pos, transform.rotation);
+                    NormalBullet normalBullet = Instantiate(_normalBullet, continer.position, transform.rotation);
+
+                    normalBullet.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = continer.BeamColor;
 
                     bullet = normalBullet;
                 }

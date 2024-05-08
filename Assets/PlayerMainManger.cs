@@ -60,7 +60,14 @@ public class PlayerMainManger : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            EventSystemRef.instance.BulletRequest.Invoke(_shipObject.transform.position);
+            BulletContiner continer = new BulletContiner();
+
+            continer.position = _shipObject.transform.position;
+            continer.bulletType = BulletSpawner.BulletType.NoramlBullet;
+            continer.BeamColor = Color.magenta;
+
+            //todo
+            EventSystemRef.instance.BulletRequest.Invoke(continer);
         }
 
        

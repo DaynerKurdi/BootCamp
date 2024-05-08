@@ -6,9 +6,18 @@ using UnityEngine.Events;
 
 
 [Serializable]
-public class MyCustomUnityEvent : UnityEvent<Vector3>
+public class MyCustomUnityEvent : UnityEvent<BulletContiner>
 {
 
+}
+
+public struct BulletContiner
+{
+    public Vector3 position;
+    public BulletSpawner.BulletType bulletType;
+    public float Speed;
+    public int Damage;
+    public Color BeamColor;
 }
 
 

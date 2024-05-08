@@ -23,8 +23,8 @@ public class BulletMainManger : MonoBehaviour
         Instance = this;
     }
 
-    public void SpawnBulletRequest(Vector3 pos)
+    public void SpawnBulletRequest(BulletContiner continer)
     {
-        _bulletSpawner.SpawnBullet(BulletSpawner.BulletType.NoramlBullet, pos);
+        _bulletSpawner.SpawnBullet(continer);
     }
 }
