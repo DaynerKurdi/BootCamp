@@ -10,6 +10,11 @@ public class MyCustomUnityEvent : UnityEvent<BulletContiner>
 {
 
 }
+[Serializable]
+public class MyCustomUnityEventTwo : UnityEvent<string>
+{
+
+}
 
 public struct BulletContiner
 {
@@ -18,6 +23,8 @@ public struct BulletContiner
     public float Speed;
     public int Damage;
     public Color BeamColor;
+
+
 }
 
 
@@ -26,6 +33,7 @@ public class EventSystemRef : MonoBehaviour
     public static EventSystemRef instance;
 
     public MyCustomUnityEvent BulletRequest;
+    public MyCustomUnityEventTwo UpdateTextHandler;
 
     public void Init()
     {

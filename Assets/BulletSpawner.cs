@@ -17,8 +17,6 @@ public class BulletSpawner : MonoBehaviour
     {
         BulletBlueprint bullet = null;
 
-
-
         switch (continer.bulletType)
         {
             case BulletType.NoramlBullet:

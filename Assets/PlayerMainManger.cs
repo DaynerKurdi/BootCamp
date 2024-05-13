@@ -10,10 +10,13 @@ public class PlayerMainManger : MonoBehaviour
     public float _speed = 5;
 
     private SpaceShipObject _shipObject;
+    private int _points;
    
     public void Init()
     {
-        _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>();    
+        _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>(); 
+        
+        _points = 0;
     }
 
     public void UpdateScript()
@@ -68,6 +71,10 @@ public class PlayerMainManger : MonoBehaviour
 
             //todo
             EventSystemRef.instance.BulletRequest.Invoke(continer);
+
+            _points++;
+
+            EventSystemRef.instance.UpdateTextHandler.Invoke(_points.ToString());
         }
 
        
