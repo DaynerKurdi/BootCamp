@@ -9,4 +9,13 @@ public class NormalBullet : BulletBlueprint
         _speed = speed;
         _damage = damage;
     }
+
+    public override void UpdateScript()
+    {
+        Vector3 pos = transform.position;
+
+        pos.y += _speed * Time.deltaTime;
+
+        transform.position = pos;
+    }
 }

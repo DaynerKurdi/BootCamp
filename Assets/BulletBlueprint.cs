@@ -8,6 +8,8 @@ public abstract class BulletBlueprint : MonoBehaviour
     protected int _damage = 0;
 
     public abstract void Init(float speed, int damage);
+
+    public abstract void UpdateScript();
         
 }
 

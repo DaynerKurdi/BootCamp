@@ -10,6 +10,8 @@ public class BulletMainManger : MonoBehaviour
 
     public BulletSpawner _bulletSpawner;
 
+    private List<BulletBlueprint> _activeBulletList = new List<BulletBlueprint>();
+
     private BulletBlueprint _bullet;
 
 
@@ -18,13 +20,27 @@ public class BulletMainManger : MonoBehaviour
     { 
        _bulletSpawner = transform.GetChild(0).GetComponent<BulletSpawner>();
 
-       // _bullet = _bulletSpawner.SpawnBullet(BulletSpawner.BulletType.NoramlBullet)
+        // _bullet = _bulletSpawner.SpawnBullet(BulletSpawner.BulletType.NoramlBullet)
+
+        _activeBulletList = new List<BulletBlueprint> ();
 
         Instance = this;
     }
 
     public void SpawnBulletRequest(BulletContiner continer)
     {
-        _bulletSpawner.SpawnBullet(continer);
+        BulletBlueprint temp = _bulletSpawner.SpawnBullet(continer);
+
+        _activeBulletList.Add(temp);
+    }
+
+    public void UpdateScript()
+    {
+        int count = _activeBulletList.Count;
+
+        for (int i = count -1; i >= 0; i--) 
+        {
+            _activeBulletList[i].UpdateScript();
+        }
     }
 }

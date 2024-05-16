@@ -73,10 +73,23 @@ public class EnemyUnitObject : MonoBehaviour
 
         moveVector.y = moveVector.y + -_speed * Time.deltaTime;
 
-        transform.position = moveVector;
-
-        Debug.Log("running");
+        //transform.position = moveVector;
        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log( "    just hit me");
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log(   "is hitting me");
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("    stopped hitting me");
     }
 
 }
