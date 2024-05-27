@@ -73,7 +73,7 @@ public class EnemyUnitObject : MonoBehaviour
 
         moveVector.y = moveVector.y + -_speed * Time.deltaTime;
 
-        //transform.position = moveVector;
+        transform.position = moveVector;
        
     }
 

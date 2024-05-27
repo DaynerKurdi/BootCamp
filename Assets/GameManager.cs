@@ -9,19 +9,21 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    public string _stageName = "Stage Zero";
+    private string _stageName = "Stage Zero";
 
-    public GMBaseState _currentState;
+    private GMBaseState _currentState;
 
-    public InitState _initStaet = new InitState();
-    public LoadDataState _loadStaet = new LoadDataState();
+    private InitState _initStaet = new InitState();
+    private LoadDataState _loadStaet = new LoadDataState();
 
-    public PlayerMainManger _playerManager;
-    public EnemeyMainManger _enemyMainManger;
-    public BulletMainManger _bulletMainManger;
-    public GameUiMainManager _gameUiMainManager;
+    private ResourcesLoader _resourcesLoader;
 
-    public EventSystemRef _eventSystem;
+    private PlayerMainManger _playerManager;
+    private EnemeyMainManger _enemyMainManger;
+    private BulletMainManger _bulletMainManger;
+    private GameUiMainManager _gameUiMainManager;
+
+    private EventSystemRef _eventSystem;
 
     public void SwitchState(GMBaseState nextState)
     {
@@ -33,6 +35,24 @@ public class GameManager : MonoBehaviour
     public void InitStateOnEnterState()
     {
         Debug.Log("this is on Enter for init State");
+
+
+        _playerManager = FindAnyObjectByType<PlayerMainManger>();
+        _enemyMainManger = FindAnyObjectByType<EnemeyMainManger>();
+        _bulletMainManger = FindAnyObjectByType<BulletMainManger>();
+        _eventSystem = FindAnyObjectByType<EventSystemRef>();
+        _gameUiMainManager = FindAnyObjectByType<GameUiMainManager>();
+        _resourcesLoader = GetComponent<ResourcesLoader>();
+
+        _resourcesLoader.Init();
+
+        _playerManager.Init();
+        _enemyMainManger.Init();
+        _bulletMainManger.Init();
+        _eventSystem.Init();
+        _gameUiMainManager.Init();
+
+
         SwitchState(_loadStaet);
     }
 
@@ -48,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     public void DataLoadStateOnEnterState()
     {
+        _resourcesLoader.LoadSprite();
         Debug.Log("this is on Enter for Load Data State");
     }
 
@@ -80,21 +101,7 @@ public class GameManager : MonoBehaviour
         _initStaet.OnEnterState(this);
     }
 
-    private void Start()
-    {
-        _playerManager = GameObject.FindAnyObjectByType<PlayerMainManger>();
-        _enemyMainManger = FindAnyObjectByType<EnemeyMainManger>();
-        _bulletMainManger = FindAnyObjectByType<BulletMainManger>();
-        _eventSystem = FindAnyObjectByType<EventSystemRef>();
-        _gameUiMainManager = FindAnyObjectByType<GameUiMainManager>();
-
-        _playerManager.Init();
-        _enemyMainManger.Init();
-        _bulletMainManger.Init();
-        _eventSystem.Init();
-        _gameUiMainManager.Init();
-    }
-
+   
     public void Update()
     {
         _currentState.OnUpdateState(this);
