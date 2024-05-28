@@ -7,6 +7,25 @@ public abstract class GMBaseState
     public abstract void OnExitState(GameManager manager);
 }
 
+
+public class LoadDataState : GMBaseState
+{
+    public override void OnEnterState(GameManager manger)
+    {
+        manger.DataLoadStateOnEnterState();
+    }
+
+    public override void OnUpdateState(GameManager manager)
+    {
+        manager.DataLoadStateOnUpdateState();
+    }
+
+    public override void OnExitState(GameManager manager)
+    {
+        manager.DataLoadStateOnExitState();
+    }
+}
+
 public class InitState : GMBaseState
 {
     public override void OnEnterState(GameManager manger)
@@ -26,20 +45,23 @@ public class InitState : GMBaseState
 
 }
 
-public class LoadDataState : GMBaseState
+public class GameLoopState : GMBaseState
 {
     public override void OnEnterState(GameManager manger)
     {
-        manger.DataLoadStateOnEnterState();
+        manger.GameLoopOnEnterState();
     }
 
     public override void OnUpdateState(GameManager manager)
     {
-        manager.DataLoadStateOnUpdateState();
+        manager.OnGameLoopOnUpdateState();
     }
 
     public override void OnExitState(GameManager manager)
     {
-        manager.DataLoadStateOnExitState();
+        manager.OnGameLoopExitState();
     }
+
+   
 }
+

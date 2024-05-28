@@ -28,4 +28,20 @@ public class ResourcesLoader : MonoBehaviour
     {
         return _exposionSpritesArray;
     }
+
+    public AudioClip GetAudioClip(string name)
+    {
+        AudioClip audioClip = null;
+
+        foreach (AudioClip clip in _exposionSoundsArray)
+        {
+            if (clip.name.Contains(name))
+            {
+                audioClip = clip;
+                break;
+            }
+        }
+
+        return audioClip;
+    }
 }

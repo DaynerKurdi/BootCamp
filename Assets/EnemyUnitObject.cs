@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyUnitObject : MonoBehaviour
@@ -79,17 +80,25 @@ public class EnemyUnitObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log( "    just hit me");
+        if (collision.name.Contains("Logic"))
+        {
+            Debug.Log("    just hit me");
+
+            ExplosionManager.instance._exlosionEventHandler.Invoke(transform.position);
+
+            gameObject.SetActive(false);
+        }
+       
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(   "is hitting me");
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("    stopped hitting me");
+
     }
 
 }
