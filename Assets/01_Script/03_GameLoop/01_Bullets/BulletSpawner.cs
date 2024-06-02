@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletSpawner : MonoBehaviour
 {
 
-    public NormalBullet _normalBullet;
+    public PlayerNormalBullet _normalBullet;
 
     public enum BulletType
     {
@@ -21,7 +21,7 @@ public class BulletSpawner : MonoBehaviour
         {
             case BulletType.NoramlBullet:
                 {
-                    NormalBullet normalBullet = Instantiate(_normalBullet, continer.position, transform.rotation);
+                    PlayerNormalBullet normalBullet = Instantiate(_normalBullet, continer.position, transform.rotation);
 
                     normalBullet.Init(5, 1);
 

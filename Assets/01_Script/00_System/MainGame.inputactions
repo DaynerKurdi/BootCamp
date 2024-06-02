@@ -6,7 +6,7 @@
             "id": "260daebd-71ff-4f6d-9834-a5ba06ce358e",
             "actions": [
                 {
-                    "name": "Movement_LeftRight",
+                    "name": "LeftRightAction",
                     "type": "Button",
                     "id": "23a8ebc3-4da5-49ec-8403-455e69bf726c",
                     "expectedControlType": "Button",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Movement_Updown",
+                    "name": "UpDownAction",
                     "type": "Button",
                     "id": "82bca985-937f-4386-b7ff-eec2525bbfbc",
                     "expectedControlType": "Button",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shooting",
+                    "name": "FireBulletAction",
                     "type": "Button",
                     "id": "03b81219-43a1-4f28-ac71-82713bec68cc",
                     "expectedControlType": "Button",
@@ -41,18 +41,62 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shooting",
+                    "action": "FireBulletAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "LeftRight",
+                    "name": "",
+                    "id": "cfe1e593-2c44-4189-b6b3-44f99e7adf5b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FireBulletAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Keyborad",
+                    "id": "820ece27-7477-4045-be9f-990d84ca9739",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftRightAction",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "eb12eb99-90cb-4188-a55b-381076680411",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftRightAction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "de8a383e-dee3-4716-88d5-de695b09220b",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftRightAction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Gamepad",
                     "id": "6d0da2d3-628b-4a96-9f83-6c40001b0651",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement_LeftRight",
+                    "action": "LeftRightAction",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -63,7 +107,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement_LeftRight",
+                    "action": "LeftRightAction",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -74,18 +118,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement_LeftRight",
+                    "action": "LeftRightAction",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "upDown",
+                    "name": "Keyborad",
+                    "id": "47a01b87-a53b-4783-9011-6cbb5ba84bba",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UpDownAction",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "339361a0-dd5d-48f3-87ec-5746cc750727",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UpDownAction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "bb845569-84a7-4323-9474-f98642e07656",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UpDownAction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Gamepad",
                     "id": "1eeb317f-36f0-4685-bae6-ffb0ec9a0995",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement_Updown",
+                    "action": "UpDownAction",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -96,7 +173,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement_Updown",
+                    "action": "UpDownAction",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -107,7 +184,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement_Updown",
+                    "action": "UpDownAction",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
