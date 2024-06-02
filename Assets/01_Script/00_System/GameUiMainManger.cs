@@ -5,11 +5,11 @@ using UnityEngine;
 public class GameUiMainManager : MonoBehaviour
 {
     [SerializeField]
-    private UitextPlugingIn _texts;
+    private UiTextObject _texts;
 
-    public void Init()
+    public void Initialization()
     {
-        _texts = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<UitextPlugingIn>();
+        _texts = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<UiTextObject>();
 
         _texts.Init();
 

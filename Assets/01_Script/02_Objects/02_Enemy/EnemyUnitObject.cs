@@ -80,11 +80,10 @@ public class EnemyUnitObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name.Contains("Logic"))
+        if (collision.name.Contains("Bullet Body"))
         {
-            Debug.Log("    just hit me");
-
-            ExplosionManager.instance._exlosionEventHandler.Invoke(transform.position);
+            EventSystemReference.Instance.ExplostionRequestEventHandler.Invoke(transform.position);
+            collision.GetComponent<BulletBody>().RemoveBullet();
 
             gameObject.SetActive(false);
         }

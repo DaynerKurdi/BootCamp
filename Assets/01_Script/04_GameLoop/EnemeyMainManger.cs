@@ -8,13 +8,11 @@ public class EnemeyMainManger : MonoBehaviour
     public List<EnemyUnitObject> _enemyObjectList;
     private EnemySpawnerController _enemySpawnerController;
 
-    public void Init()
+    public void Initialization()
     {
         _enemySpawnerController = transform.GetChild(0).GetComponent<EnemySpawnerController>();
 
-
         _enemyObjectList = _enemySpawnerController.SpawnEnemy(15);
-
 
         int count = _enemyObjectList.Count;
 

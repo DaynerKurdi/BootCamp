@@ -1,37 +1,18 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
-
-[Serializable]
-public class ExplostionRequestEventEvent : UnityEvent<Vector3>
-{
-
-}
-
-
-
-
 
 public class ExplosionManager : MonoBehaviour
 {
-
-    public static ExplosionManager instance;
     private Transform _offscreeanPosition;
+    private Queue<ExposionObject> _expolsionBodyQueue;
+    private List<ExposionObject> _activeExoplsionBodyList;
 
-    private Queue<ExposionBody> _expolsionBodyQueue;
-    private List<ExposionBody> _activeExoplsionBodyList;
-
-    public ExplostionRequestEventEvent _exlosionEventHandler;
-
-    public void Init()
+    public void Initialization()
     {
-        instance = this;
-        _expolsionBodyQueue = new Queue<ExposionBody>();
-        _activeExoplsionBodyList = new List<ExposionBody>();
+        _expolsionBodyQueue = new Queue<ExposionObject>();
+        _activeExoplsionBodyList = new List<ExposionObject>();
 
         Sprite[] explosionSpriteArray = ResourcesLoader.Instance.GetExposionSpritesArray();
         AudioClip clip = ResourcesLoader.Instance.GetAudioClip("EXPLOSION");
@@ -43,7 +24,7 @@ public class ExplosionManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            ExposionBody temp = transform.GetChild(0).GetChild(i).GetComponent<ExposionBody>();
+            ExposionObject temp = transform.GetChild(0).GetChild(i).GetComponent<ExposionObject>();
 
             temp.Init(explosionSpriteArray, clip);
 
@@ -51,8 +32,7 @@ public class ExplosionManager : MonoBehaviour
 
             _expolsionBodyQueue.Enqueue(temp);
         }
-
-        instance._exlosionEventHandler.AddListener(SpwanExposionBodyEvent);
+        EventSystemReference.Instance.ExplostionRequestEventHandler.AddListener(SpwanExposionBodyEvent);
     }
 
     public void UpdateScript()
@@ -72,14 +52,14 @@ public class ExplosionManager : MonoBehaviour
 
     private void SpwanExposionBodyEvent(Vector3 position)
     {
-        ExposionBody temp = _expolsionBodyQueue.Dequeue();
+        ExposionObject temp = _expolsionBodyQueue.Dequeue();
 
         temp.BeginEffect(position);
 
         _activeExoplsionBodyList.Add(temp);
     }
 
-    private void PutExposionBackToSleep(ExposionBody body)
+    private void PutExposionBackToSleep(ExposionObject body)
     {
         body.gameObject.SetActive(false);
         body.transform.position = _offscreeanPosition.position;

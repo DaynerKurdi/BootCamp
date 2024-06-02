@@ -1,25 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMainManger : MonoBehaviour
-{
-
-    public float _speed = 5;
+{ 
+    private float _speed = 5;
+    private float _normalShotSpeed = 13.0f;
 
     private SpaceShipObject _shipObject;
-    private int _points;
 
     private float _leftRightInputValue;
     private float _upDownInputValue;
    
-    public void Init()
+    public void Initialization()
     {
-        _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>(); 
-        
-        _points = 0;
+        _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>();
     }
 
     public void UpdateScript()
@@ -47,10 +43,7 @@ public class PlayerMainManger : MonoBehaviour
             moveVector.y = -4;
         }
 
-     
         _shipObject.transform.position = moveVector;
-
-        
     }
 
     public void ReadUserLeftRightMovementInput(InputAction.CallbackContext context)
@@ -74,7 +67,6 @@ public class PlayerMainManger : MonoBehaviour
         {
             _leftRightInputValue = 0;
         }
-       
     }
 
     public void ReadUserUpDownMovement(InputAction.CallbackContext context)
@@ -103,14 +95,13 @@ public class PlayerMainManger : MonoBehaviour
         BulletContiner continer = new BulletContiner();
 
         continer.position = _shipObject.transform.position;
-        continer.bulletType = BulletSpawner.BulletType.NoramlBullet;
-        continer.BeamColor = Color.magenta;
+        continer.bulletType = BulletType.PlayerNoramlBullet;
+        continer.damage = 1;
+        continer.beamColor = Color.magenta;
+        continer.speed = _normalShotSpeed;
+        continer.direction = 1;
 
         //todo
-        EventSystemRef.instance.BulletRequest.Invoke(continer);
-
-        _points++;
-
-        EventSystemRef.instance.UpdateTextHandler.Invoke(_points.ToString());
+        EventSystemReference.Instance.BulletRequestEventHandler.Invoke(continer);
     }
 }

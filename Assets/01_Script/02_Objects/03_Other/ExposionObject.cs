@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExposionBody : MonoBehaviour
+public class ExposionObject : MonoBehaviour
 {
     private Sprite[] _spritesArray;
     private int _spriteIndex;
