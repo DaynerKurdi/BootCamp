@@ -16,6 +16,7 @@ public class BulletBody : MonoBehaviour
 
     public void SetupData(BulletBlueprint bullet, BulletContiner continer)
     {
+       GetComponent<Collider2D>().enabled = true;
         _bulletLogic = bullet;
         transform.position  = continer.position;
         _spriteRenderer.color = continer.beamColor;
@@ -47,8 +48,18 @@ public class BulletBody : MonoBehaviour
         }
     }
 
+    public int DealDamage()
+    {
+        if (_bulletLogic != null)
+        {
+            return _bulletLogic.Damage;
+        }
+        return 0;
+    }
+
     public void RemoveBullet()
     {
+        GetComponent<Collider2D>().enabled = false; 
         EventSystemReference.Instance.BulletPutBulletBackToSleepEventHandler.Invoke(this);
     }
 

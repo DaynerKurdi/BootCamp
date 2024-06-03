@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class GameUiMainManager : MonoBehaviour
 {
-    [SerializeField]
     private UiTextObject _texts;
 
     public void Initialize()
     {
         _texts = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<UiTextObject>();
 
-        _texts.Init();
+        _texts.Initialize();
 
-        _texts.SetUIText("Yay");
+        _texts.SetUIText(0.ToString());
+
+        EventSystemReference.Instance.UpdateUiScoreEventTextHandler.AddListener(SetUIText);
     }
 
-    public void SetUIText(string text)
+    public void SetUIText(int score)
     {
-        _texts.SetUIText(text); 
+        _texts.SetUIText(score.ToString()); 
     }
 }

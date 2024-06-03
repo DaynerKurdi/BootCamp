@@ -8,6 +8,8 @@ public class PlayerMainManger : MonoBehaviour
     private float _speed = 5;
     private float _normalShotSpeed = 13.0f;
 
+    private int _score;
+
     private SpaceShipObject _shipObject;
 
     private float _leftRightInputValue;
@@ -15,7 +17,12 @@ public class PlayerMainManger : MonoBehaviour
    
     public void Initialize()
     {
+        _leftRightInputValue = 0;
+        _upDownInputValue = 0;
+        _score = 0;
         _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>();
+
+        EventSystemReference.Instance.SendScoreToPlayerEventHandler.AddListener(UpdatePlayerScore);
     }
 
     public void UpdateScript()
@@ -92,13 +99,13 @@ public class PlayerMainManger : MonoBehaviour
 
     public void ReadUserShootInput(InputAction.CallbackContext context)
     {
-        if (!context.started)
+        if (context.started)
         {
             BulletContiner continer = new BulletContiner();
 
             continer.position = _shipObject.transform.position;
             continer.bulletType = BulletType.PlayerNoramlBullet;
-            continer.damage = 1;
+            continer.damage = 5;
             continer.beamColor = Color.magenta;
             continer.speed = _normalShotSpeed;
             continer.direction = 1;
@@ -106,5 +113,12 @@ public class PlayerMainManger : MonoBehaviour
             //todo
             EventSystemReference.Instance.BulletRequestEventHandler.Invoke(continer);
         }
+    }
+
+    private void UpdatePlayerScore(int score)
+    {
+        _score += score;
+
+        EventSystemReference.Instance.UpdateUiScoreEventTextHandler.Invoke(_score);
     }
 }

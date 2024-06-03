@@ -7,7 +7,7 @@ public class UiTextObject : MonoBehaviour
 {
     private TMP_Text _myGreatTextHolder;
 
-    public void Init()
+    public void Initialize()
     {
         _myGreatTextHolder = GetComponent<TMP_Text>();
     }

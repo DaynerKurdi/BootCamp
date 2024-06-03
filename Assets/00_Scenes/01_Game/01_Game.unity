@@ -13738,7 +13738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2c37f2b36d36e49a7d65426b7a1260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _texts: {fileID: 0}
 --- !u!1 &765566718
 GameObject:
   m_ObjectHideFlags: 0
@@ -14584,7 +14583,10 @@ MonoBehaviour:
   BulletPutBulletBackToSleepEventHandler:
     m_PersistentCalls:
       m_Calls: []
-  UpdateScoreEventTextHandler:
+  SendScoreToPlayerEventHandler:
+    m_PersistentCalls:
+      m_Calls: []
+  UpdateUiScoreEventTextHandler:
     m_PersistentCalls:
       m_Calls: []
   EnemyPutObjectBackToSleepEventHandler:
@@ -32378,7 +32380,7 @@ GameObject:
   - component: {fileID: 1694023062}
   - component: {fileID: 1694023063}
   m_Layer: 0
-  m_Name: RawImage
+  m_Name: textHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

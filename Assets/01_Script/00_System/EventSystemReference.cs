@@ -18,7 +18,14 @@ public class BulletPutBulletBackToSleepEvent : UnityEvent<BulletBody>
 }
 
 [Serializable]
-public class UiTextScoreUpdateRequestUnityEvent : UnityEvent<string>
+public class SendScoreToPlayerEvent : UnityEvent<int>
+{
+
+}
+
+
+[Serializable]
+public class UiTextScoreUpdateRequestUnityEvent : UnityEvent<int>
 {
 
 }
@@ -41,7 +48,8 @@ public class EventSystemReference : MonoBehaviour
 
     public BulletRequestUnityEvent BulletRequestEventHandler;
     public BulletPutBulletBackToSleepEvent BulletPutBulletBackToSleepEventHandler;
-    public UiTextScoreUpdateRequestUnityEvent UpdateScoreEventTextHandler;
+    public SendScoreToPlayerEvent SendScoreToPlayerEventHandler;
+    public UiTextScoreUpdateRequestUnityEvent UpdateUiScoreEventTextHandler;
     public EnemyPutObjectBackToSleepEvent EnemyPutObjectBackToSleepEventHandler;
     public ExplostionRequestEvent ExplostionRequestEventHandler;
 

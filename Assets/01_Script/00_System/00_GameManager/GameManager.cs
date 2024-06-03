@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
 
     public void GameLoopOnEnterState()
     {
-
+        _enemyMainManger.BeginWave(45);
     }
 
     public void OnGameLoopOnUpdateState()

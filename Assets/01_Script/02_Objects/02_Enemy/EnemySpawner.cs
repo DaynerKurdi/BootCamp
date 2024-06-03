@@ -24,7 +24,6 @@ public class EnemySpawner : MonoBehaviour
             enemy.transform.position = _offScreeanPoition.position;
 
             _enemyBodyQueue.Enqueue(enemy);
-
         }
     }
 

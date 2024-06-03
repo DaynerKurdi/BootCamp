@@ -13,12 +13,14 @@ public class EnemeyMainManger : MonoBehaviour
         _enemySpawnerController = transform.GetChild(0).GetComponent<EnemySpawner>();
 
         _enemySpawnerController.Initialize();
-
-        _activeEnemyObjectList = _enemySpawnerController.SpawnEnemy(15);
-
-        _activeEnemyObjectList[_activeEnemyObjectList.Count - 1].StartMovingCheck = true;
-
         EventSystemReference.Instance.EnemyPutObjectBackToSleepEventHandler.AddListener(PutObjectToSleep);
+    }
+
+    public void BeginWave(int numberOfEnemies)
+    {
+        _activeEnemyObjectList = _enemySpawnerController.SpawnEnemy(numberOfEnemies);
+
+        _activeEnemyObjectList[_activeEnemyObjectList.Count - 1].BeginObject();
     }
 
     public void UpdateScript()

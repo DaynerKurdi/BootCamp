@@ -22,11 +22,6 @@ public class EnemyBody : MonoBehaviour
 
     public bool IsCountingDown { get {  return _IsCountingDown; } set { _IsCountingDown = value; } }
 
-    public bool GetStartMovingCheck()
-    {
-        return _startMoving;
-    }
-
     public void Initialize()
     {
         _maxHealth = 3;
@@ -38,6 +33,22 @@ public class EnemyBody : MonoBehaviour
         _IsCountingDown = false;
 
         gameObject.SetActive(false);
+        transform.GetChild(1).GetChild(0).GetComponent<Collider2D>().enabled = false;
+    }
+
+    public void BeginObject()
+    {
+        _maxHealth = 3;
+        _currentHealth = _maxHealth;
+        _speed = 5.0f;
+
+        _currentWaitTime = 0;
+        _startMoving = true;
+        _IsCountingDown = false;
+
+        transform.GetChild(1).GetChild(0).GetComponent<Collider2D>().enabled = true;
+
+        gameObject.SetActive(true);
     }
 
     public void UpdateScript()
@@ -83,14 +94,37 @@ public class EnemyBody : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name.Contains("Bullet Body"))
+        if (collision.name.Contains("Bullet Body") && _currentHealth > 0)
+        {
+            BulletBody bullet = collision.GetComponent<BulletBody>();
+
+            TakeDamage(bullet.DealDamage());
+
+            bullet.RemoveBullet();
+        }
+    }
+
+    private void TakeDamage(int Amount)
+    {
+        _currentHealth -= Mathf.Abs(Amount);
+
+        if (_currentHealth < 0)
+        {
+            _currentHealth = 0;
+        }
+
+        if ( _currentHealth == 0)
         {
             EventSystemReference.Instance.ExplostionRequestEventHandler.Invoke(transform.position);
-            collision.GetComponent<BulletBody>().RemoveBullet();
+
+            EventSystemReference.Instance.EnemyPutObjectBackToSleepEventHandler.Invoke(this);
+
+            transform.GetChild(1).GetChild(0).GetComponent<Collider2D>().enabled = false;
+
+            EventSystemReference.Instance.SendScoreToPlayerEventHandler.Invoke(1);
 
             gameObject.SetActive(false);
         }
-       
     }
 
     private void OnTriggerStay2D(Collider2D collision)
