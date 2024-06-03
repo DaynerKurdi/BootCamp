@@ -13,7 +13,7 @@ public class PlayerMainManger : MonoBehaviour
     private float _leftRightInputValue;
     private float _upDownInputValue;
    
-    public void Initialization()
+    public void Initialize()
     {
         _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>();
     }
@@ -92,16 +92,19 @@ public class PlayerMainManger : MonoBehaviour
 
     public void ReadUserShootInput(InputAction.CallbackContext context)
     {
-        BulletContiner continer = new BulletContiner();
+        if (!context.started)
+        {
+            BulletContiner continer = new BulletContiner();
 
-        continer.position = _shipObject.transform.position;
-        continer.bulletType = BulletType.PlayerNoramlBullet;
-        continer.damage = 1;
-        continer.beamColor = Color.magenta;
-        continer.speed = _normalShotSpeed;
-        continer.direction = 1;
+            continer.position = _shipObject.transform.position;
+            continer.bulletType = BulletType.PlayerNoramlBullet;
+            continer.damage = 1;
+            continer.beamColor = Color.magenta;
+            continer.speed = _normalShotSpeed;
+            continer.direction = 1;
 
-        //todo
-        EventSystemReference.Instance.BulletRequestEventHandler.Invoke(continer);
+            //todo
+            EventSystemReference.Instance.BulletRequestEventHandler.Invoke(continer);
+        }
     }
 }

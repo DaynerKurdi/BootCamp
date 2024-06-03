@@ -7,19 +7,19 @@ public class BulletSpawner : MonoBehaviour
     private Queue<BulletBody> _bulletBodyQueue;
     private Transform _offScreenPosition;
 
-    public void Initialization()
+    public void Initialize()
     {
         _bulletBodyQueue = new Queue<BulletBody>();
 
-        int count = transform.GetChild(0).childCount;
+        int count = transform.GetChild(1).childCount;
 
-        _offScreenPosition = transform.GetChild(1);
+        _offScreenPosition = transform.GetChild(0);
 
         for (int i = 0;i < count; i++)
         {
-            BulletBody temp = transform.GetChild(0).GetChild(i).GetComponent<BulletBody>();
+            BulletBody temp = transform.GetChild(1).GetChild(i).GetComponent<BulletBody>();
 
-            temp.Initialization();
+            temp.Initialize();
 
             temp.transform.position = _offScreenPosition.position;
 

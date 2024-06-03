@@ -7,7 +7,7 @@ public class GameUiMainManager : MonoBehaviour
     [SerializeField]
     private UiTextObject _texts;
 
-    public void Initialization()
+    public void Initialize()
     {
         _texts = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<UiTextObject>();
 

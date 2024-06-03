@@ -9,12 +9,12 @@ public class BulletMainManger : MonoBehaviour
     public BulletSpawner _bulletSpawner;
     private List<BulletBody> _activeBulletList = new List<BulletBody>();
 
-    public void Initialization()
+    public void Initialize()
     { 
         _bulletSpawner = transform.GetChild(0).GetComponent<BulletSpawner>();
         _activeBulletList = new List<BulletBody> ();
 
-        _bulletSpawner.Initialization();
+        _bulletSpawner.Initialize();
 
         EventSystemReference.Instance.BulletRequestEventHandler.AddListener(SpawnBulletRequest);
 

@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,11 +24,16 @@ public class UiTextScoreUpdateRequestUnityEvent : UnityEvent<string>
 }
 
 [Serializable]
-public class ExplostionRequestEventEvent : UnityEvent<Vector3>
+public class EnemyPutObjectBackToSleepEvent : UnityEvent<EnemyBody>
 {
 
 }
 
+[Serializable]
+public class ExplostionRequestEvent : UnityEvent<Vector3>
+{
+
+}
 
 public class EventSystemReference : MonoBehaviour
 {
@@ -36,9 +42,10 @@ public class EventSystemReference : MonoBehaviour
     public BulletRequestUnityEvent BulletRequestEventHandler;
     public BulletPutBulletBackToSleepEvent BulletPutBulletBackToSleepEventHandler;
     public UiTextScoreUpdateRequestUnityEvent UpdateScoreEventTextHandler;
-    public ExplostionRequestEventEvent ExplostionRequestEventHandler;
+    public EnemyPutObjectBackToSleepEvent EnemyPutObjectBackToSleepEventHandler;
+    public ExplostionRequestEvent ExplostionRequestEventHandler;
 
-    public void Initialization()
+    public void Initialize()
     {
         Instance = this;
     }

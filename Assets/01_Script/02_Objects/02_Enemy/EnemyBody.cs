@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyUnitObject : MonoBehaviour
+public class EnemyBody : MonoBehaviour
 {
     public int _currentHealth = 0;
     public int _maxHealth = 3;
@@ -27,7 +27,7 @@ public class EnemyUnitObject : MonoBehaviour
         return _startMoving;
     }
 
-    public void Init()
+    public void Initialize()
     {
         _maxHealth = 3;
         _currentHealth = _maxHealth;
@@ -36,6 +36,8 @@ public class EnemyUnitObject : MonoBehaviour
         _currentWaitTime = 0;
         _startMoving = false;
         _IsCountingDown = false;
+
+        gameObject.SetActive(false);
     }
 
     public void UpdateScript()
@@ -65,9 +67,6 @@ public class EnemyUnitObject : MonoBehaviour
         }
     }
 
-
-
-
     private void Move()
     {
         Vector3 moveVector = transform.position;
@@ -75,7 +74,11 @@ public class EnemyUnitObject : MonoBehaviour
         moveVector.y = moveVector.y + -_speed * Time.deltaTime;
 
         transform.position = moveVector;
-       
+    }
+
+    public void RemoveObject()
+    {
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

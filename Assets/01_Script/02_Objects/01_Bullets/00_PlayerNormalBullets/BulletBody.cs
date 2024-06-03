@@ -8,7 +8,7 @@ public class BulletBody : MonoBehaviour
     private BulletBlueprint _bulletLogic;
     private SpriteRenderer _spriteRenderer;
 
-    public void Initialization()
+    public void Initialize()
     {
         _bulletLogic = null;
         _spriteRenderer = GetComponent<SpriteRenderer>();

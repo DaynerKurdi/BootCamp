@@ -38,9 +38,9 @@ public class GameManager : MonoBehaviour
         _eventSystem = GetComponent<EventSystemReference>();
         _resourcesLoader = GetComponent<ResourcesLoader>();
 
-        _eventSystem.Initialization();
+        _eventSystem.Initialize();
 
-        _resourcesLoader.Initialization();
+        _resourcesLoader.Initialize();
 
         _resourcesLoader.LoadSprite();
 
@@ -68,11 +68,11 @@ public class GameManager : MonoBehaviour
         _gameUiMainManager = FindAnyObjectByType<GameUiMainManager>();
         _explosionManager = FindAnyObjectByType<ExplosionManager>();
 
-        _playerManager.Initialization();
-        _enemyMainManger.Initialization();
-        _bulletMainManger.Initialization();
-        _gameUiMainManager.Initialization();
-        _explosionManager.Initialization();
+        _playerManager.Initialize();
+        _enemyMainManger.Initialize();
+        _bulletMainManger.Initialize();
+        _gameUiMainManager.Initialize();
+        _explosionManager.Initialize();
 
         SwitchState(_gameLoopState);
     }

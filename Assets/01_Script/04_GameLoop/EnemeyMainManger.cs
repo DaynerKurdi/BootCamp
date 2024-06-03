@@ -5,40 +5,52 @@ using UnityEngine.UIElements;
 
 public class EnemeyMainManger : MonoBehaviour
 {
-    public List<EnemyUnitObject> _enemyObjectList;
-    private EnemySpawnerController _enemySpawnerController;
+    private List<EnemyBody> _activeEnemyObjectList;
+    private EnemySpawner _enemySpawnerController;
 
-    public void Initialization()
+    public void Initialize()
     {
-        _enemySpawnerController = transform.GetChild(0).GetComponent<EnemySpawnerController>();
+        _enemySpawnerController = transform.GetChild(0).GetComponent<EnemySpawner>();
 
-        _enemyObjectList = _enemySpawnerController.SpawnEnemy(15);
+        _enemySpawnerController.Initialize();
 
-        int count = _enemyObjectList.Count;
+        _activeEnemyObjectList = _enemySpawnerController.SpawnEnemy(15);
 
-        for (int i = 0; i < count; i++)
-        {
-            _enemyObjectList[i].Init();
-        }
+        _activeEnemyObjectList[_activeEnemyObjectList.Count - 1].StartMovingCheck = true;
 
-        _enemyObjectList[0].StartMovingCheck = true;
+        EventSystemReference.Instance.EnemyPutObjectBackToSleepEventHandler.AddListener(PutObjectToSleep);
     }
 
     public void UpdateScript()
     {
-        int count = _enemyObjectList.Count;
+        int count = _activeEnemyObjectList.Count;
 
-        for (int i = 0; i < count; i++)
+        for (int i = count - 1; i >= 0; i--)
         {
-            _enemyObjectList[i].UpdateScript();
+            _activeEnemyObjectList[i].UpdateScript();
 
-            if (i < count - 1)
+            if (i > 0)
             {
-                if (_enemyObjectList[i].StartMovingCheck == true && _enemyObjectList[i + 1].IsCountingDown == false) 
+                if (_activeEnemyObjectList[i].StartMovingCheck == true && _activeEnemyObjectList[i - 1].IsCountingDown == false) 
                 {
-                    _enemyObjectList[i + 1].IsCountingDown = true;
+                    _activeEnemyObjectList[i - 1].IsCountingDown = true;
                 }
             }
         }
+    }
+
+    private void PutObjectToSleep(EnemyBody enemy)
+    {
+        int count = _activeEnemyObjectList.Count;
+
+        for (int i = 0; i < count; i++)
+        {
+           if (i > 0 && _activeEnemyObjectList[i] == enemy) 
+           {
+                _activeEnemyObjectList[i - 1].IsCountingDown = true;
+           }
+        }
+        _activeEnemyObjectList.Remove(enemy);
+        _enemySpawnerController.PutEnemyBackToSleep(enemy); 
     }
 }

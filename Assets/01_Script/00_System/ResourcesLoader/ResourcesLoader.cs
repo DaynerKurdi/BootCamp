@@ -12,7 +12,7 @@ public class ResourcesLoader : MonoBehaviour
     [SerializeField]
     private AudioClip[] _exposionSoundsArray;
 
-    public void Initialization()
+    public void Initialize()
     {
         Instance = this;
     }

@@ -9,7 +9,7 @@ public class ExplosionManager : MonoBehaviour
     private Queue<ExposionObject> _expolsionBodyQueue;
     private List<ExposionObject> _activeExoplsionBodyList;
 
-    public void Initialization()
+    public void Initialize()
     {
         _expolsionBodyQueue = new Queue<ExposionObject>();
         _activeExoplsionBodyList = new List<ExposionObject>();
@@ -17,16 +17,15 @@ public class ExplosionManager : MonoBehaviour
         Sprite[] explosionSpriteArray = ResourcesLoader.Instance.GetExposionSpritesArray();
         AudioClip clip = ResourcesLoader.Instance.GetAudioClip("EXPLOSION");
 
+        _offscreeanPosition = transform.GetChild(0);
 
-        _offscreeanPosition = transform.GetChild(1);
-
-        int count = transform.GetChild(0).childCount;
+        int count = transform.GetChild(1).childCount;
 
         for (int i = 0; i < count; i++)
         {
-            ExposionObject temp = transform.GetChild(0).GetChild(i).GetComponent<ExposionObject>();
+            ExposionObject temp = transform.GetChild(1).GetChild(i).GetComponent<ExposionObject>();
 
-            temp.Init(explosionSpriteArray, clip);
+            temp.Initialize(explosionSpriteArray, clip);
 
             temp.transform.position = _offscreeanPosition.position;
 

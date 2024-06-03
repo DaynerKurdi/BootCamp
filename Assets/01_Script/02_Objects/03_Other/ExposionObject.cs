@@ -11,7 +11,7 @@ public class ExposionObject : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private AudioSource _audioSource;
 
-    public void Init(Sprite[] SpriteArray, AudioClip clip)
+    public void Initialize(Sprite[] SpriteArray, AudioClip clip)
     {
         _spritesArray = SpriteArray;
         _spriteIndex = 0;
