@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +37,7 @@ public class ExplosionManager : MonoBehaviour
     {
         int count = _activeExoplsionBodyList.Count;
 
-        for (int i = 0; i < count; i++)
+        for (int i = count - 1; i >= 0; i--)
         {
             bool result = _activeExoplsionBodyList[i].UpdateScript();
 
@@ -58,12 +57,46 @@ public class ExplosionManager : MonoBehaviour
         _activeExoplsionBodyList.Add(temp);
     }
 
+    public void SpwanExposionBodyForPlayerDeath(int expositionCount)
+    {
+        for (int i = 0;i < expositionCount;i++)
+        {
+            float r = 1 * Mathf.Sqrt(Random.value);
+            float theta = Random.value * 2 * Mathf.PI;
+
+            Vector3 expositionPosition = new Vector3();
+
+            expositionPosition.x = 0 + r * Mathf.Cos(theta);
+            expositionPosition.y = 0 + r * Mathf.Sin(theta);
+
+            SpwanExposionBodyEvent(expositionPosition);
+        }
+
+    }
+
     private void PutExposionBackToSleep(ExposionObject body)
     {
         body.gameObject.SetActive(false);
         body.transform.position = _offscreeanPosition.position;
 
         _expolsionBodyQueue.Enqueue(body);
+        _activeExoplsionBodyList.Remove(body);
+    }
+
+    public void PutExpolsionToSleep()
+    {
+        int count = _activeExoplsionBodyList.Count;
+
+        for (int i = count - 1; i >= 0; i--)
+        {
+            ExposionObject body = _activeExoplsionBodyList[i];
+
+            body.gameObject.SetActive(false);
+            body.transform.position = _offscreeanPosition.position;
+
+            _expolsionBodyQueue.Enqueue(body);
+            _activeExoplsionBodyList.Remove(body);
+        }
     }
 
 }

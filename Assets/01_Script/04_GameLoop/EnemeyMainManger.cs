@@ -55,4 +55,19 @@ public class EnemeyMainManger : MonoBehaviour
         _activeEnemyObjectList.Remove(enemy);
         _enemySpawnerController.PutEnemyBackToSleep(enemy); 
     }
+
+    public void PutAllEnemiesToSleep()
+    {
+        int count = _activeEnemyObjectList.Count;
+
+        for(int i = count - 1; i >=0; i--)
+        {
+            EnemyBody enemy = _activeEnemyObjectList[i];
+
+            _activeEnemyObjectList.Remove(enemy);
+            _enemySpawnerController.PutEnemyBackToSleep(enemy);
+
+        }
+    }
+
 }

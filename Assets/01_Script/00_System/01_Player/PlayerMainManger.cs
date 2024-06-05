@@ -8,12 +8,19 @@ public class PlayerMainManger : MonoBehaviour , IDataPersistence
     private float _speed = 5;
     private float _normalShotSpeed = 13.0f;
 
+    private PlayerDeathController _playerDeathController; 
+
     private int _score;
 
     private SpaceShipObject _shipObject;
 
     private float _leftRightInputValue;
     private float _upDownInputValue;
+
+    private int _currentHealth = 0;
+    private int _maxHealth = 1;
+
+    
    
     public void Initialize()
     {
@@ -24,7 +31,10 @@ public class PlayerMainManger : MonoBehaviour , IDataPersistence
 
         EventSystemReference.Instance.SendScoreToPlayerEventHandler.AddListener(UpdatePlayerScore);
 
-        
+        _playerDeathController = GetComponent<PlayerDeathController>();
+        _playerDeathController.Initialize();
+
+        _currentHealth = _maxHealth;
     }
 
     public void SetScore()
@@ -60,6 +70,11 @@ public class PlayerMainManger : MonoBehaviour , IDataPersistence
         }
 
         _shipObject.transform.position = moveVector;
+    }
+
+    public void UpdateScriptPlayerDeath()
+    {
+        _shipObject.transform.position = _playerDeathController.UpdateScript();
     }
 
     public void ReadUserLeftRightMovementInput(InputAction.CallbackContext context)
@@ -140,4 +155,22 @@ public class PlayerMainManger : MonoBehaviour , IDataPersistence
         _score = continer._scoreCount;
         _shipObject.transform.position = continer._playerPosition;
     }
+
+    public void TakeDamage(int Amount)
+    {
+        _currentHealth -= Amount;
+
+        if (_currentHealth < 0)
+        {
+            _currentHealth = 0;
+        }
+
+        if (_currentHealth == 0)
+        {
+            EventSystemReference.Instance.GameManagerStartPlayerDeathSequenceHandler.Invoke();
+            _playerDeathController.StartMovingToCenterLerpProcess(_shipObject.transform.position);
+        }
+    }
+
+   
 }

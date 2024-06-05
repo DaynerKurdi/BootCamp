@@ -52,6 +52,7 @@ public class EventSystemReference : MonoBehaviour
     public UiTextScoreUpdateRequestUnityEvent UpdateUiScoreEventTextHandler;
     public EnemyPutObjectBackToSleepEvent EnemyPutObjectBackToSleepEventHandler;
     public ExplostionRequestEvent ExplostionRequestEventHandler;
+    public UnityEvent GameManagerStartPlayerDeathSequenceHandler;
 
     public void Initialize()
     {

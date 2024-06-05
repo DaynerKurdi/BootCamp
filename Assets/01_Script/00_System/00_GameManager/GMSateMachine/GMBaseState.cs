@@ -60,8 +60,24 @@ public class GameLoopState : GMBaseState
     public override void OnExitState(GameManager manager)
     {
         manager.OnGameLoopExitState();
+    } 
+}
+
+public class PlayerDeathSequence : GMBaseState
+{
+    public override void OnEnterState(GameManager manger)
+    {
+        manger.OnEnterPlayerDeathSequenceState();
     }
 
-   
+    public override void OnUpdateState(GameManager manager)
+    {
+        manager.OnUpdatePlayerDeathSequenceState();
+    }
+
+    public override void OnExitState(GameManager manager)
+    {
+        manager.OnExitPlayerDeathSequenceState();
+    }
 }
 

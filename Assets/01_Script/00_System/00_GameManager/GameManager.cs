@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class GameManager : MonoBehaviour
     private LoadDataState _loadState = new LoadDataState();
     private InitState _initSate = new InitState();
     private GameLoopState _gameLoopState = new GameLoopState();
+    private PlayerDeathSequence _playerDeathSequenceState = new PlayerDeathSequence();
 
     private ResourcesLoader _resourcesLoader;
     private PlayerMainManger _playerManager;
@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private BulletMainManger _bulletMainManger;
     private GameUiMainManager _gameUiMainManager;
     private ExplosionManager _explosionManager;
+    private FadeinManager _fadeinManager;
 
     private EventSystemReference _eventSystem;
 
@@ -37,12 +38,15 @@ public class GameManager : MonoBehaviour
 
         _eventSystem = GetComponent<EventSystemReference>();
         _resourcesLoader = GetComponent<ResourcesLoader>();
+        
 
         _eventSystem.Initialize();
 
         _resourcesLoader.Initialize();
 
         _resourcesLoader.LoadSprite();
+
+        EventSystemReference.Instance.GameManagerStartPlayerDeathSequenceHandler.AddListener(SwitchSatateToPlayerDeathSequenceState);
 
         SwitchState(_initSate); 
 
@@ -67,12 +71,14 @@ public class GameManager : MonoBehaviour
         _bulletMainManger = FindAnyObjectByType<BulletMainManger>();
         _gameUiMainManager = FindAnyObjectByType<GameUiMainManager>();
         _explosionManager = FindAnyObjectByType<ExplosionManager>();
+        _fadeinManager = FindAnyObjectByType<FadeinManager>();
 
         _playerManager.Initialize();
         _enemyMainManger.Initialize();
         _bulletMainManger.Initialize();
         _gameUiMainManager.Initialize();
         _explosionManager.Initialize();
+        _fadeinManager.Initialize();
 
         SwitchState(_gameLoopState);
     }
@@ -91,7 +97,7 @@ public class GameManager : MonoBehaviour
     {
         _enemyMainManger.BeginWave(45);
         _playerManager.SetScore();
-        DataPersistenceManager.Instance.LoadGame();
+       // DataPersistenceManager.Instance.LoadGame();
     }
 
     public void OnGameLoopOnUpdateState()
@@ -103,6 +109,26 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnGameLoopExitState()
+    {
+
+    }
+
+    public void OnEnterPlayerDeathSequenceState()
+    {
+        _enemyMainManger.PutAllEnemiesToSleep();
+        _explosionManager.PutExpolsionToSleep();
+
+        _explosionManager.SpwanExposionBodyForPlayerDeath(15);
+    }
+
+    public void OnUpdatePlayerDeathSequenceState()
+    {
+        _fadeinManager.UpdateScript();
+        _playerManager.UpdateScriptPlayerDeath();
+        _explosionManager.UpdateScript();
+    }
+
+    public void OnExitPlayerDeathSequenceState()
     {
 
     }
@@ -135,7 +161,12 @@ public class GameManager : MonoBehaviour
 
     public void OnApplicationQuit()
     {
-        DataPersistenceManager.Instance.SaveGame();
+        //DataPersistenceManager.Instance.SaveGame();
+    }
+
+    private void SwitchSatateToPlayerDeathSequenceState()
+    {
+        SwitchState(_playerDeathSequenceState);
     }
 }
 
