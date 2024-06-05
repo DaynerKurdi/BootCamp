@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMainManger : MonoBehaviour
+public class PlayerMainManger : MonoBehaviour , IDataPersistence
 { 
     private float _speed = 5;
     private float _normalShotSpeed = 13.0f;
@@ -19,14 +19,23 @@ public class PlayerMainManger : MonoBehaviour
     {
         _leftRightInputValue = 0;
         _upDownInputValue = 0;
-        _score = 0;
+        //_score = 0;
         _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>();
 
         EventSystemReference.Instance.SendScoreToPlayerEventHandler.AddListener(UpdatePlayerScore);
+
+        
+    }
+
+    public void SetScore()
+    {
+        EventSystemReference.Instance.SendScoreToPlayerEventHandler.Invoke(_score);
     }
 
     public void UpdateScript()
     {
+        Debug.Log(_score);
+
         Vector3 moveVector = _shipObject.transform.position;
 
         moveVector.x += _leftRightInputValue * _speed * Time.deltaTime;
@@ -56,8 +65,6 @@ public class PlayerMainManger : MonoBehaviour
     public void ReadUserLeftRightMovementInput(InputAction.CallbackContext context)
     {
         float value = context.ReadValue<float>();
-
-        Debug.Log(value);
 
         if (context.performed)
         {
@@ -120,5 +127,17 @@ public class PlayerMainManger : MonoBehaviour
         _score += score;
 
         EventSystemReference.Instance.UpdateUiScoreEventTextHandler.Invoke(_score);
+    }
+
+    public void WriteDataToFileContiner(ref GameDataContiner continer)
+    {
+        continer._scoreCount = _score;
+        continer._playerPosition = _shipObject.transform.position;
+    }
+
+    public void ReadDataToFileContiner(GameDataContiner continer)
+    {
+        _score = continer._scoreCount;
+        _shipObject.transform.position = continer._playerPosition;
     }
 }

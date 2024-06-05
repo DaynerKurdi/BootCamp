@@ -12,7 +12,7 @@ public class GameUiMainManager : MonoBehaviour
 
         _texts.Initialize();
 
-        _texts.SetUIText(0.ToString());
+        //_texts.SetUIText();
 
         EventSystemReference.Instance.UpdateUiScoreEventTextHandler.AddListener(SetUIText);
     }

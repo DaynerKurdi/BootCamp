@@ -90,6 +90,8 @@ public class GameManager : MonoBehaviour
     public void GameLoopOnEnterState()
     {
         _enemyMainManger.BeginWave(45);
+        _playerManager.SetScore();
+        DataPersistenceManager.Instance.LoadGame();
     }
 
     public void OnGameLoopOnUpdateState()
@@ -129,6 +131,11 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         _currentState.OnUpdateState(this);
+    }
+
+    public void OnApplicationQuit()
+    {
+        DataPersistenceManager.Instance.SaveGame();
     }
 }
 
