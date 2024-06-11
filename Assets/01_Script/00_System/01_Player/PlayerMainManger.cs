@@ -29,10 +29,14 @@ public class PlayerMainManger : MonoBehaviour , IDataPersistence
         //_score = 0;
         _shipObject = transform.GetChild(0).GetComponent<SpaceShipObject>();
 
+        _shipObject.transform.position = Vector3.zero;  
+
         EventSystemReference.Instance.SendScoreToPlayerEventHandler.AddListener(UpdatePlayerScore);
 
         _playerDeathController = GetComponent<PlayerDeathController>();
         _playerDeathController.Initialize();
+
+        SetPlayerShipActiveState(true);
 
         _currentHealth = _maxHealth;
     }
@@ -42,10 +46,13 @@ public class PlayerMainManger : MonoBehaviour , IDataPersistence
         EventSystemReference.Instance.SendScoreToPlayerEventHandler.Invoke(_score);
     }
 
+    public void SetPlayerShipActiveState(bool flag)
+    {
+        _shipObject.gameObject.SetActive(flag);
+    }
+
     public void UpdateScript()
     {
-        Debug.Log(_score);
-
         Vector3 moveVector = _shipObject.transform.position;
 
         moveVector.x += _leftRightInputValue * _speed * Time.deltaTime;
@@ -72,9 +79,18 @@ public class PlayerMainManger : MonoBehaviour , IDataPersistence
         _shipObject.transform.position = moveVector;
     }
 
-    public void UpdateScriptPlayerDeath()
+    public bool UpdateScriptPlayerDeath()
     {
+        bool result = false;
+
         _shipObject.transform.position = _playerDeathController.UpdateScript();
+
+        if (_shipObject.transform.position == Vector3.zero)
+        {
+            result = true;
+        }
+
+        return result;
     }
 
     public void ReadUserLeftRightMovementInput(InputAction.CallbackContext context)

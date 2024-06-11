@@ -10,6 +10,12 @@ public class ExposionObject : MonoBehaviour
     private float _maxAnimationTime = 0.05f;
     private SpriteRenderer _spriteRenderer;
     private AudioSource _audioSource;
+    private bool _playAnimation = false;
+
+    public bool StartAnimatinFlag {  get { return _playAnimation; } set { _playAnimation = value; } }
+
+
+   
 
     public void Initialize(Sprite[] SpriteArray, AudioClip clip)
     {
@@ -25,12 +31,23 @@ public class ExposionObject : MonoBehaviour
         _spriteRenderer.sprite = _spritesArray[0];
         _audioSource.clip = clip;
 
+        _maxAnimationTime = 0.05f;
+
+        _playAnimation = false;
+
         gameObject.SetActive(false); 
     }
 
     public bool UpdateScript()
     {
-        return SpriteAnimationProcess();
+        bool result = false;
+
+        if (_playAnimation) 
+        {
+           result = SpriteAnimationProcess();
+        }
+
+        return result;
     }
 
     public void BeginEffect(Vector3 position)
@@ -40,9 +57,46 @@ public class ExposionObject : MonoBehaviour
         _spriteRenderer.sprite = _spritesArray[0];
         transform.position = position;
         gameObject.SetActive(true);
+        _playAnimation = true;
+        _maxAnimationTime = 0.05f;
         //_audioSource.pitch = Random.Range(-2.0f, 2.0f);
         _audioSource.Play();
+    }
 
+    public void PrimeEffect(Vector3 position )
+    {
+        transform.position = position;
+        _spriteIndex = 0;
+        _currentAnimationTime = 0;
+        _maxAnimationTime = 0.02f;
+        _spriteRenderer.sprite = _spritesArray[0];
+        _playAnimation = false;
+     
+    }
+
+    public void BeginBigVersion(Vector3 position)
+    {
+        transform.position = position;
+        transform.localScale = Vector3.one * 5;
+        _spriteIndex = 0;
+        _currentAnimationTime = 0;
+        _maxAnimationTime = 0.1f;
+
+        gameObject.SetActive(true);
+
+
+        _audioSource.pitch = 1;
+
+        _spriteRenderer.sprite = _spritesArray[0];
+        _playAnimation = true;
+
+        _audioSource.Play();
+    }
+
+    public void PlaySoundEffect()
+    {
+        gameObject.SetActive(true);
+        _audioSource.Play();
     }
 
     private bool SpriteAnimationProcess()

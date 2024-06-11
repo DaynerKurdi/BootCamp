@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    private enum PlayerDeathAnimationStep
+    {
+        start = 0,
+        AtCenter = 1,
+        bigExplosition = 2,
+        RestingGame = 3,
+
+    }
+
     public static GameManager instance;
     private string _stageName = "Stage Zero";
 
@@ -22,8 +32,12 @@ public class GameManager : MonoBehaviour
     private GameUiMainManager _gameUiMainManager;
     private ExplosionManager _explosionManager;
     private FadeinManager _fadeinManager;
+    private float _currentWaitBeforeResettingTime = 0;
+    private float _maxWaitBeforeResettingTime = 3.0f;
 
     private EventSystemReference _eventSystem;
+
+    private PlayerDeathAnimationStep _step;
 
     public void SwitchState(GMBaseState nextState)
     {
@@ -106,6 +120,11 @@ public class GameManager : MonoBehaviour
         _enemyMainManger.UpdateScript();
         _bulletMainManger.UpdateScript();
         _explosionManager.UpdateScript();
+
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            SwitchState(_initSate);
+        }
     }
 
     public void OnGameLoopExitState()
@@ -118,14 +137,72 @@ public class GameManager : MonoBehaviour
         _enemyMainManger.PutAllEnemiesToSleep();
         _explosionManager.PutExpolsionToSleep();
 
-        _explosionManager.SpwanExposionBodyForPlayerDeath(15);
+        _step = PlayerDeathAnimationStep.start;
+
+
     }
 
     public void OnUpdatePlayerDeathSequenceState()
     {
-        _fadeinManager.UpdateScript();
-        _playerManager.UpdateScriptPlayerDeath();
-        _explosionManager.UpdateScript();
+
+        switch (_step)
+        {
+            case PlayerDeathAnimationStep.start:
+                {
+                    _fadeinManager.UpdateScript();
+                    if (_playerManager.UpdateScriptPlayerDeath())
+                    {
+                        _explosionManager.SpwanExposionBodyForPlayerDeath(15);
+                        _step++;
+                    }  
+                }
+                break;
+            case PlayerDeathAnimationStep.AtCenter:
+                {
+                    _playerManager.UpdateScriptPlayerDeath();
+                    _fadeinManager.UpdateScript();
+
+                    if (_explosionManager.UpdateExpolsitionBodySequence())
+                    {
+                        _explosionManager.SpwanBigExpostionRequest();
+                        _playerManager.SetPlayerShipActiveState(false);
+                        _step++;
+                    }
+                    
+                }
+                break;
+
+            case PlayerDeathAnimationStep.bigExplosition:
+                {
+                    if(_explosionManager.UpdateBigExpolsitionBody())
+                    {
+                        _currentWaitBeforeResettingTime = 0;
+                        _gameUiMainManager.SetGameOverObjectActiveState(true);
+                        _step++;
+                    }
+                }
+                break;
+
+            case PlayerDeathAnimationStep.RestingGame:
+                {
+                    if (_currentWaitBeforeResettingTime == _maxWaitBeforeResettingTime)
+                    {
+                        SwitchState(_initSate);
+                    }
+                    else
+                    {
+                        _currentWaitBeforeResettingTime += Time.deltaTime;
+
+                        if (_currentWaitBeforeResettingTime > _maxWaitBeforeResettingTime)
+                        {
+                            _currentWaitBeforeResettingTime = _maxWaitBeforeResettingTime;
+                        }
+                    }
+                }
+                break;
+
+                  
+        }
     }
 
     public void OnExitPlayerDeathSequenceState()

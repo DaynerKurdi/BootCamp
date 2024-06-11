@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameUiMainManager : MonoBehaviour
 {
     private UiTextObject _texts;
+    private GameObject _gameOverText;
 
     public void Initialize()
     {
@@ -12,6 +13,9 @@ public class GameUiMainManager : MonoBehaviour
 
         _texts.Initialize();
 
+        _gameOverText = transform.GetChild(1).gameObject;
+
+        _gameOverText.SetActive(false);
         //_texts.SetUIText();
 
         EventSystemReference.Instance.UpdateUiScoreEventTextHandler.AddListener(SetUIText);
@@ -20,5 +24,10 @@ public class GameUiMainManager : MonoBehaviour
     public void SetUIText(int score)
     {
         _texts.SetUIText(score.ToString()); 
+    }
+
+    public void SetGameOverObjectActiveState(bool flag)
+    {
+        _gameOverText.SetActive(flag);
     }
 }
