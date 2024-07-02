@@ -28,15 +28,19 @@ public class ChangeScene : MonoBehaviour
         _startFade = false;
 
         _currentColorLerpTime = 0;
+
+        _fadeImage.color = _startColor;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _startFade == false)
         {
             _currentColorLerpTime = 0;
             _startFade = true;
+
+            _fadeImage.gameObject.SetActive(true);
         }
 
         if (_startFade == true)
